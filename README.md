@@ -1,6 +1,8 @@
-# BlockDoc
-
-![][BlockDoc Logo](https://raw.githubusercontent.com/berrydev-ai/blockdoc/main/logo.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-full-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/logo-full-light.png">
+  <img alt="blockdoc logo" src="logo-full-light.png">
+</picture>
 
 A simple, powerful standard for structured content that works beautifully with LLMs, humans, and modern editors.
 
