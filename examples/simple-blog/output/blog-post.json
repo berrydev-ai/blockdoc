@@ -1,0 +1,96 @@
+{
+  "article": {
+    "title": "Getting Started with BlockDoc",
+    "metadata": {
+      "author": "BlockDoc Team",
+      "publishedDate": "2025-03-23T16:46:26.381Z",
+      "tags": [
+        "blockdoc",
+        "tutorial",
+        "content",
+        "structured-data"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "intro",
+        "type": "text",
+        "content": "Welcome to **BlockDoc**, a simple yet powerful format for structured content. In this tutorial, we'll explore the basics of creating and working with BlockDoc documents."
+      },
+      {
+        "id": "what-is-blockdoc",
+        "type": "heading",
+        "content": "What is BlockDoc?",
+        "level": 2
+      },
+      {
+        "id": "blockdoc-explanation",
+        "type": "text",
+        "content": "BlockDoc is a structured content format designed for:\n\n* **LLM-friendly** - Optimized for generation and modification by AI\n* **Block-based** - Content is divided into modular blocks with semantic IDs\n* **Flexible** - Supports various content types and nested structures\n* **Database-ready** - Easy to store in document databases\n* **Renderer-agnostic** - Output to HTML, Markdown, or other formats"
+      },
+      {
+        "id": "code-example",
+        "type": "code",
+        "content": "// Create a new BlockDoc document\nconst doc = new BlockDocDocument({\n  title: \"My First Document\",\n});\n\n// Add some content blocks\ndoc.addBlock(Block.heading(\"intro-heading\", 2, \"Introduction\"));\ndoc.addBlock(Block.text(\"intro-text\", \"This is my **first** BlockDoc document.\"));\n\n// Render to HTML\nconst html = doc.renderToHTML();\nconsole.log(html);",
+        "language": "javascript"
+      },
+      {
+        "id": "sample-image",
+        "type": "image",
+        "content": "",
+        "url": "https://placehold.co/600x400?text=BlockDoc+Example",
+        "alt": "A sample BlockDoc document structure",
+        "caption": "Figure 1: Visual representation of a BlockDoc document"
+      },
+      {
+        "id": "block-types",
+        "type": "heading",
+        "content": "Supported Block Types",
+        "level": 2
+      },
+      {
+        "id": "block-types-list",
+        "type": "list",
+        "content": "",
+        "items": [
+          "**Text**: Markdown-formatted text content",
+          "**Heading**: Section headings with levels 1-6",
+          "**Image**: Images with URL, alt text, and optional caption",
+          "**Code**: Code snippets with language highlighting",
+          "**List**: Ordered or unordered lists",
+          "**Quote**: Blockquotes with optional attribution",
+          "**Embed**: Embedded content like videos or tweets",
+          "**Divider**: Horizontal dividers between sections"
+        ],
+        "listType": "unordered"
+      },
+      {
+        "id": "quote-intro",
+        "type": "text",
+        "content": "BlockDoc was designed with a specific philosophy in mind:"
+      },
+      {
+        "id": "philosophy-quote",
+        "type": "quote",
+        "content": "Content should be structured in a way that is meaningful to both humans and machines, allowing for precise updates and transformations while maintaining semantic context.",
+        "attribution": "BlockDoc Design Principles"
+      },
+      {
+        "id": "conclusion",
+        "type": "heading",
+        "content": "Getting Started",
+        "level": 2
+      },
+      {
+        "id": "conclusion-text",
+        "type": "text",
+        "content": "Ready to try BlockDoc for yourself? Check out our [GitHub repository](https://github.com/berrydev-ai/blockdoc) and follow the installation instructions to get started.\n\nBlockDoc is perfect for content-heavy applications, CMS systems, documentation sites, and anywhere else you need structured, maintainable content."
+      },
+      {
+        "id": "end-divider",
+        "type": "divider",
+        "content": ""
+      }
+    ]
+  }
+}

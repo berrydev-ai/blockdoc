@@ -7,7 +7,7 @@
  * 3. Extract structured information from article content
  */
 
-import { BlockDocDocument } from "../src/core/document"
+import { BlockDocDocument } from "../../src/core/document.js"
 import OpenAI from "openai"
 
 // Initialize OpenAI client

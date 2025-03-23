@@ -5,7 +5,7 @@
  */
 
 import { marked } from "marked"
-import { sanitizeHtml } from "../utils/sanitize"
+import { sanitizeHtml } from "../utils/sanitize.js"
 import hljs from "highlight.js"
 
 // Configure marked

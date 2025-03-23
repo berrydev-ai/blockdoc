@@ -1,0 +1,51 @@
+<article class="blockdoc-article">
+<h1 class="blockdoc-title">Getting Started with BlockDoc</h1>
+<div class="blockdoc-block blockdoc-text" data-block-id="intro" data-block-type="text"><p>Welcome to <strong>BlockDoc</strong>, a simple yet powerful format for structured content. In this tutorial, we&#39;ll explore the basics of creating and working with BlockDoc documents.</p>
+</div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="what-is-blockdoc" data-block-type="heading"><h2>What is BlockDoc?</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="blockdoc-explanation" data-block-type="text"><p>BlockDoc is a structured content format designed for:</p>
+<ul>
+<li><strong>LLM-friendly</strong> - Optimized for generation and modification by AI</li>
+<li><strong>Block-based</strong> - Content is divided into modular blocks with semantic IDs</li>
+<li><strong>Flexible</strong> - Supports various content types and nested structures</li>
+<li><strong>Database-ready</strong> - Easy to store in document databases</li>
+<li><strong>Renderer-agnostic</strong> - Output to HTML, Markdown, or other formats</li>
+</ul>
+</div>
+<div class="blockdoc-block blockdoc-code" data-block-id="code-example" data-block-type="code">
+    <pre class="blockdoc-pre">
+      <code class="blockdoc-code language-javascript"><span class="hljs-comment">// Create a new BlockDoc document</span>
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BlockDocDocument</span>({
+  <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;My First Document&quot;</span>,
+});
+
+<span class="hljs-comment">// Add some content blocks</span>
+doc.<span class="hljs-title function_">addBlock</span>(<span class="hljs-title class_">Block</span>.<span class="hljs-title function_">heading</span>(<span class="hljs-string">&quot;intro-heading&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;Introduction&quot;</span>));
+doc.<span class="hljs-title function_">addBlock</span>(<span class="hljs-title class_">Block</span>.<span class="hljs-title function_">text</span>(<span class="hljs-string">&quot;intro-text&quot;</span>, <span class="hljs-string">&quot;This is my **first** BlockDoc document.&quot;</span>));
+
+<span class="hljs-comment">// Render to HTML</span>
+<span class="hljs-keyword">const</span> html = doc.<span class="hljs-title function_">renderToHTML</span>();
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(html);</code>
+    </pre>
+  </div>
+<div class="blockdoc-block blockdoc-image" data-block-id="sample-image" data-block-type="image"><figure class="blockdoc-figure"><img src="https://placehold.co/600x400?text=BlockDoc+Example" alt="A sample BlockDoc document structure" class="blockdoc-image" /><figcaption class="blockdoc-caption">Figure 1: Visual representation of a BlockDoc document</figcaption></figure></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="block-types" data-block-type="heading"><h2>Supported Block Types</h2></div>
+<div class="blockdoc-block blockdoc-list" data-block-id="block-types-list" data-block-type="list"><ul class="blockdoc-list blockdoc-list-unordered"><li><p><strong>Text</strong>: Markdown-formatted text content</p>
+</li><li><p><strong>Heading</strong>: Section headings with levels 1-6</p>
+</li><li><p><strong>Image</strong>: Images with URL, alt text, and optional caption</p>
+</li><li><p><strong>Code</strong>: Code snippets with language highlighting</p>
+</li><li><p><strong>List</strong>: Ordered or unordered lists</p>
+</li><li><p><strong>Quote</strong>: Blockquotes with optional attribution</p>
+</li><li><p><strong>Embed</strong>: Embedded content like videos or tweets</p>
+</li><li><p><strong>Divider</strong>: Horizontal dividers between sections</p>
+</li></ul></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="quote-intro" data-block-type="text"><p>BlockDoc was designed with a specific philosophy in mind:</p>
+</div>
+<div class="blockdoc-block blockdoc-quote" data-block-id="philosophy-quote" data-block-type="quote"><blockquote class="blockdoc-quote"><p>Content should be structured in a way that is meaningful to both humans and machines, allowing for precise updates and transformations while maintaining semantic context.</p>
+</blockquote><cite class="blockdoc-attribution">BlockDoc Design Principles</cite></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="conclusion" data-block-type="heading"><h2>Getting Started</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="conclusion-text" data-block-type="text"><p>Ready to try BlockDoc for yourself? Check out our <a href="https://github.com/berrydev-ai/blockdoc">GitHub repository</a> and follow the installation instructions to get started.</p>
+<p>BlockDoc is perfect for content-heavy applications, CMS systems, documentation sites, and anywhere else you need structured, maintainable content.</p>
+</div>
+<div class="blockdoc-block blockdoc-divider" data-block-id="end-divider" data-block-type="divider"><hr class="blockdoc-divider" /></div>
+</article>

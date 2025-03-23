@@ -6,10 +6,10 @@
 
 import Ajv from "ajv"
 import addFormats from "ajv-formats"
-import schema from "../schema/blockdoc.schema.json"
-import { renderToHTML } from "../renderers/html"
-import { renderToMarkdown } from "../renderers/markdown"
-import { Block } from "./block"
+import { schema } from "../schema-loader.js"
+import { renderToHTML } from "../renderers/html.js"
+import { renderToMarkdown } from "../renderers/markdown.js"
+import { Block } from "./block.js"
 
 export class BlockDocDocument {
   /**
