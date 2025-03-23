@@ -7,14 +7,14 @@
  */
 
 // Define allowed block types
-const ALLOWED_TYPES = ["text", "heading", "image", "code", "list", "quote", "embed", "divider"];
+const ALLOWED_TYPES = ['text', 'heading', 'image', 'code', 'list', 'quote', 'embed', 'divider'];
 
 // Define type-specific required properties
 const TYPE_REQUIREMENTS = {
-  heading: ["level"],
-  code: ["language"],
-  image: ["url", "alt"],
-  list: ["items", "listType"]
+  heading: ['level'],
+  code: ['language'],
+  image: ['url', 'alt'],
+  list: ['items', 'listType']
 };
 class Block {
   /**
@@ -27,16 +27,16 @@ class Block {
    */
   constructor(data) {
     if (!data.id) {
-      throw new Error("Block ID is required");
+      throw new Error('Block ID is required');
     }
     if (!data.type || !ALLOWED_TYPES.includes(data.type)) {
-      throw new Error(`Invalid block type: ${data.type}. Allowed types are: ${ALLOWED_TYPES.join(", ")}`);
+      throw new Error(`Invalid block type: ${data.type}. Allowed types are: ${ALLOWED_TYPES.join(', ')}`);
     }
 
     // Basic properties all blocks have
     this.id = data.id;
     this.type = data.type;
-    this.content = data.content || "";
+    this.content = data.content || '';
 
     // Check type-specific required properties
     const requiredProps = TYPE_REQUIREMENTS[this.type] || [];
@@ -49,7 +49,7 @@ class Block {
 
     // Copy any additional properties
     Object.keys(data).forEach(key => {
-      if (!["id", "type", "content"].includes(key) && this[key] === undefined) {
+      if (!['id', 'type', 'content'].includes(key) && this[key] === undefined) {
         this[key] = data[key];
       }
     });
@@ -88,7 +88,7 @@ class Block {
 
     // Add type-specific properties
     Object.keys(this).forEach(key => {
-      if (!["id", "type", "content"].includes(key)) {
+      if (!['id', 'type', 'content'].includes(key)) {
         result[key] = this[key];
       }
     });
@@ -108,7 +108,7 @@ class Block {
   static text(id, content) {
     return new Block({
       id,
-      type: "text",
+      type: 'text',
       content
     });
   }
@@ -123,7 +123,7 @@ class Block {
   static heading(id, level, content) {
     return new Block({
       id,
-      type: "heading",
+      type: 'heading',
       level,
       content
     });
@@ -140,8 +140,8 @@ class Block {
   static image(id, url, alt, caption) {
     return new Block({
       id,
-      type: "image",
-      content: "",
+      type: 'image',
+      content: '',
       url,
       alt,
       ...(caption ? {
@@ -160,7 +160,7 @@ class Block {
   static code(id, language, content) {
     return new Block({
       id,
-      type: "code",
+      type: 'code',
       language,
       content
     });
@@ -173,11 +173,11 @@ class Block {
    * @param {string} [listType='unordered'] - List type (ordered or unordered)
    * @returns {Block} New block instance
    */
-  static list(id, items, listType = "unordered") {
+  static list(id, items, listType = 'unordered') {
     return new Block({
       id,
-      type: "list",
-      content: "",
+      type: 'list',
+      content: '',
       items,
       listType
     });

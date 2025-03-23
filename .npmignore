@@ -1,35 +1,32 @@
-# Development and build files
+# Development files
 .github/
-.babelrc
-.eslintrc
-.eslintignore
+.git/
+.vscode/
+.idea/
+node_modules/
+coverage/
+examples/
+docs/
+tests/
 .gitignore
-jest.config.js
+.npmrc
+.babelrc
+.eslintrc.json
 babel.config.json
 rollup.config*.js
+jest.config.js
 jsdoc.json
-coverage/
+tsconfig.json
+CONTRIBUTING.md
 CLAUDE.md
 CLAUDE_CONVO.md
 
-# Examples (these can be large and aren't needed for runtime)
-examples/
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Documentation source files (the compiled documentation will be included)
-docs/
-
-# Tests
-tests/
-__tests__/
-**/*.test.js
-
-# Editor configs
-.vscode/
-.idea/
-*.sublime-*
+# OS specific
 .DS_Store
-
-# Dependency management
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+Thumbs.db

@@ -19,7 +19,7 @@ function sanitizeHtml(html) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#039;'
+    '\'': '&#039;'
   };
   return String(html).replace(/[&<>"']/g, function (m) {
     return map[m];
@@ -54,16 +54,16 @@ marked.setOptions({
  */
 function renderToHTML(article) {
   if (!article || !article.blocks || !Array.isArray(article.blocks)) {
-    throw new Error("Invalid article structure");
+    throw new Error('Invalid article structure');
   }
-  const html = [`<article class="blockdoc-article">`, `<h1 class="blockdoc-title">${sanitizeHtml(article.title)}</h1>`];
+  const html = ['<article class="blockdoc-article">', `<h1 class="blockdoc-title">${sanitizeHtml(article.title)}</h1>`];
 
   // Render each block
   article.blocks.forEach(block => {
     html.push(renderBlock(block));
   });
-  html.push("</article>");
-  return html.join("\n");
+  html.push('</article>');
+  return html.join('\n');
 }
 
 /**
@@ -79,31 +79,31 @@ function renderBlock(block) {
 
   // Wrapper with block ID and type as data attributes
   const openWrapper = `<div class="blockdoc-block blockdoc-${type}" data-block-id="${id}" data-block-type="${type}">`;
-  const closeWrapper = `</div>`;
+  const closeWrapper = '</div>';
   let content;
   switch (type) {
-    case "text":
+    case 'text':
       content = renderTextBlock(block);
       break;
-    case "heading":
+    case 'heading':
       content = renderHeadingBlock(block);
       break;
-    case "image":
+    case 'image':
       content = renderImageBlock(block);
       break;
-    case "code":
+    case 'code':
       content = renderCodeBlock(block);
       break;
-    case "list":
+    case 'list':
       content = renderListBlock(block);
       break;
-    case "quote":
+    case 'quote':
       content = renderQuoteBlock(block);
       break;
-    case "embed":
+    case 'embed':
       content = renderEmbedBlock(block);
       break;
-    case "divider":
+    case 'divider':
       content = renderDividerBlock();
       break;
     default:
@@ -181,7 +181,7 @@ function renderCodeBlock(block) {
   }
   return `
     <pre class="blockdoc-pre">
-      <code class="blockdoc-code ${language ? `language-${language}` : ""}">${highlightedCode}</code>
+      <code class="blockdoc-code ${language ? `language-${language}` : ''}">${highlightedCode}</code>
     </pre>
   `;
 }
@@ -197,10 +197,10 @@ function renderListBlock(block) {
     listType
   } = block;
   if (!items || !Array.isArray(items)) {
-    return "<p>Invalid list items</p>";
+    return '<p>Invalid list items</p>';
   }
-  const tag = listType === "ordered" ? "ol" : "ul";
-  const itemsHtml = items.map(item => `<li>${marked.parse(item)}</li>`).join("");
+  const tag = listType === 'ordered' ? 'ol' : 'ul';
+  const itemsHtml = items.map(item => `<li>${marked.parse(item)}</li>`).join('');
   return `<${tag} class="blockdoc-list blockdoc-list-${listType}">${itemsHtml}</${tag}>`;
 }
 
@@ -233,7 +233,7 @@ function renderEmbedBlock(block) {
     embedType
   } = block;
   let embedHtml;
-  if (embedType === "youtube") {
+  if (embedType === 'youtube') {
     // Extract YouTube video ID
     const videoId = extractYouTubeId(url);
     if (videoId) {
@@ -250,9 +250,9 @@ function renderEmbedBlock(block) {
         </div>
       `;
     } else {
-      embedHtml = `<p>Invalid YouTube URL</p>`;
+      embedHtml = '<p>Invalid YouTube URL</p>';
     }
-  } else if (embedType === "twitter") {
+  } else if (embedType === 'twitter') {
     embedHtml = `
       <div class="blockdoc-embed blockdoc-twitter">
         <blockquote class="twitter-tweet">
@@ -287,7 +287,7 @@ function renderEmbedBlock(block) {
  * @returns {string} HTML representation
  */
 function renderDividerBlock() {
-  return `<hr class="blockdoc-divider" />`;
+  return '<hr class="blockdoc-divider" />';
 }
 
 /**
@@ -300,14 +300,14 @@ function extractYouTubeId(url) {
     const parsedUrl = new URL(url);
 
     // Handle youtu.be format
-    if (parsedUrl.hostname === "youtu.be") {
+    if (parsedUrl.hostname === 'youtu.be') {
       return parsedUrl.pathname.slice(1);
     }
 
     // Handle youtube.com format
-    if (parsedUrl.hostname === "www.youtube.com" || parsedUrl.hostname === "youtube.com") {
+    if (parsedUrl.hostname === 'www.youtube.com' || parsedUrl.hostname === 'youtube.com') {
       const params = new URLSearchParams(parsedUrl.search);
-      return params.get("v");
+      return params.get('v');
     }
     return null;
   } catch (e) {

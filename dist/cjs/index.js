@@ -16,14 +16,14 @@ var _documentCurrentScript = typeof document !== 'undefined' ? document.currentS
  */
 
 // Define allowed block types
-const ALLOWED_TYPES = ["text", "heading", "image", "code", "list", "quote", "embed", "divider"];
+const ALLOWED_TYPES = ['text', 'heading', 'image', 'code', 'list', 'quote', 'embed', 'divider'];
 
 // Define type-specific required properties
 const TYPE_REQUIREMENTS = {
-  heading: ["level"],
-  code: ["language"],
-  image: ["url", "alt"],
-  list: ["items", "listType"]
+  heading: ['level'],
+  code: ['language'],
+  image: ['url', 'alt'],
+  list: ['items', 'listType']
 };
 class Block {
   /**
@@ -36,16 +36,16 @@ class Block {
    */
   constructor(data) {
     if (!data.id) {
-      throw new Error("Block ID is required");
+      throw new Error('Block ID is required');
     }
     if (!data.type || !ALLOWED_TYPES.includes(data.type)) {
-      throw new Error(`Invalid block type: ${data.type}. Allowed types are: ${ALLOWED_TYPES.join(", ")}`);
+      throw new Error(`Invalid block type: ${data.type}. Allowed types are: ${ALLOWED_TYPES.join(', ')}`);
     }
 
     // Basic properties all blocks have
     this.id = data.id;
     this.type = data.type;
-    this.content = data.content || "";
+    this.content = data.content || '';
 
     // Check type-specific required properties
     const requiredProps = TYPE_REQUIREMENTS[this.type] || [];
@@ -58,7 +58,7 @@ class Block {
 
     // Copy any additional properties
     Object.keys(data).forEach(key => {
-      if (!["id", "type", "content"].includes(key) && this[key] === undefined) {
+      if (!['id', 'type', 'content'].includes(key) && this[key] === undefined) {
         this[key] = data[key];
       }
     });
@@ -97,7 +97,7 @@ class Block {
 
     // Add type-specific properties
     Object.keys(this).forEach(key => {
-      if (!["id", "type", "content"].includes(key)) {
+      if (!['id', 'type', 'content'].includes(key)) {
         result[key] = this[key];
       }
     });
@@ -117,7 +117,7 @@ class Block {
   static text(id, content) {
     return new Block({
       id,
-      type: "text",
+      type: 'text',
       content
     });
   }
@@ -132,7 +132,7 @@ class Block {
   static heading(id, level, content) {
     return new Block({
       id,
-      type: "heading",
+      type: 'heading',
       level,
       content
     });
@@ -149,8 +149,8 @@ class Block {
   static image(id, url, alt, caption) {
     return new Block({
       id,
-      type: "image",
-      content: "",
+      type: 'image',
+      content: '',
       url,
       alt,
       ...(caption ? {
@@ -169,7 +169,7 @@ class Block {
   static code(id, language, content) {
     return new Block({
       id,
-      type: "code",
+      type: 'code',
       language,
       content
     });
@@ -182,11 +182,11 @@ class Block {
    * @param {string} [listType='unordered'] - List type (ordered or unordered)
    * @returns {Block} New block instance
    */
-  static list(id, items, listType = "unordered") {
+  static list(id, items, listType = 'unordered') {
     return new Block({
       id,
-      type: "list",
-      content: "",
+      type: 'list',
+      content: '',
       items,
       listType
     });
@@ -226,7 +226,7 @@ function sanitizeHtml(html) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#039;'
+    '\'': '&#039;'
   };
   return String(html).replace(/[&<>"']/g, function (m) {
     return map[m];
@@ -261,16 +261,16 @@ marked.marked.setOptions({
  */
 function renderToHTML(article) {
   if (!article || !article.blocks || !Array.isArray(article.blocks)) {
-    throw new Error("Invalid article structure");
+    throw new Error('Invalid article structure');
   }
-  const html = [`<article class="blockdoc-article">`, `<h1 class="blockdoc-title">${sanitizeHtml(article.title)}</h1>`];
+  const html = ['<article class="blockdoc-article">', `<h1 class="blockdoc-title">${sanitizeHtml(article.title)}</h1>`];
 
   // Render each block
   article.blocks.forEach(block => {
     html.push(renderBlock(block));
   });
-  html.push("</article>");
-  return html.join("\n");
+  html.push('</article>');
+  return html.join('\n');
 }
 
 /**
@@ -286,31 +286,31 @@ function renderBlock(block) {
 
   // Wrapper with block ID and type as data attributes
   const openWrapper = `<div class="blockdoc-block blockdoc-${type}" data-block-id="${id}" data-block-type="${type}">`;
-  const closeWrapper = `</div>`;
+  const closeWrapper = '</div>';
   let content;
   switch (type) {
-    case "text":
+    case 'text':
       content = renderTextBlock(block);
       break;
-    case "heading":
+    case 'heading':
       content = renderHeadingBlock(block);
       break;
-    case "image":
+    case 'image':
       content = renderImageBlock(block);
       break;
-    case "code":
+    case 'code':
       content = renderCodeBlock(block);
       break;
-    case "list":
+    case 'list':
       content = renderListBlock(block);
       break;
-    case "quote":
+    case 'quote':
       content = renderQuoteBlock(block);
       break;
-    case "embed":
+    case 'embed':
       content = renderEmbedBlock(block);
       break;
-    case "divider":
+    case 'divider':
       content = renderDividerBlock();
       break;
     default:
@@ -388,7 +388,7 @@ function renderCodeBlock(block) {
   }
   return `
     <pre class="blockdoc-pre">
-      <code class="blockdoc-code ${language ? `language-${language}` : ""}">${highlightedCode}</code>
+      <code class="blockdoc-code ${language ? `language-${language}` : ''}">${highlightedCode}</code>
     </pre>
   `;
 }
@@ -404,10 +404,10 @@ function renderListBlock(block) {
     listType
   } = block;
   if (!items || !Array.isArray(items)) {
-    return "<p>Invalid list items</p>";
+    return '<p>Invalid list items</p>';
   }
-  const tag = listType === "ordered" ? "ol" : "ul";
-  const itemsHtml = items.map(item => `<li>${marked.marked.parse(item)}</li>`).join("");
+  const tag = listType === 'ordered' ? 'ol' : 'ul';
+  const itemsHtml = items.map(item => `<li>${marked.marked.parse(item)}</li>`).join('');
   return `<${tag} class="blockdoc-list blockdoc-list-${listType}">${itemsHtml}</${tag}>`;
 }
 
@@ -440,7 +440,7 @@ function renderEmbedBlock(block) {
     embedType
   } = block;
   let embedHtml;
-  if (embedType === "youtube") {
+  if (embedType === 'youtube') {
     // Extract YouTube video ID
     const videoId = extractYouTubeId(url);
     if (videoId) {
@@ -457,9 +457,9 @@ function renderEmbedBlock(block) {
         </div>
       `;
     } else {
-      embedHtml = `<p>Invalid YouTube URL</p>`;
+      embedHtml = '<p>Invalid YouTube URL</p>';
     }
-  } else if (embedType === "twitter") {
+  } else if (embedType === 'twitter') {
     embedHtml = `
       <div class="blockdoc-embed blockdoc-twitter">
         <blockquote class="twitter-tweet">
@@ -494,7 +494,7 @@ function renderEmbedBlock(block) {
  * @returns {string} HTML representation
  */
 function renderDividerBlock() {
-  return `<hr class="blockdoc-divider" />`;
+  return '<hr class="blockdoc-divider" />';
 }
 
 /**
@@ -507,14 +507,14 @@ function extractYouTubeId(url) {
     const parsedUrl = new URL(url);
 
     // Handle youtu.be format
-    if (parsedUrl.hostname === "youtu.be") {
+    if (parsedUrl.hostname === 'youtu.be') {
       return parsedUrl.pathname.slice(1);
     }
 
     // Handle youtube.com format
-    if (parsedUrl.hostname === "www.youtube.com" || parsedUrl.hostname === "youtube.com") {
+    if (parsedUrl.hostname === 'www.youtube.com' || parsedUrl.hostname === 'youtube.com') {
       const params = new URLSearchParams(parsedUrl.search);
-      return params.get("v");
+      return params.get('v');
     }
     return null;
   } catch (e) {
@@ -535,7 +535,7 @@ function extractYouTubeId(url) {
  */
 function renderToMarkdown(article) {
   if (!article || !article.blocks || !Array.isArray(article.blocks)) {
-    throw new Error("Invalid article structure");
+    throw new Error('Invalid article structure');
   }
   const markdown = [`# ${article.title}`, ''];
 
@@ -572,22 +572,22 @@ function renderBlockToMarkdown(block) {
     type
   } = block;
   switch (type) {
-    case "text":
+    case 'text':
       return renderTextBlockToMarkdown(block);
-    case "heading":
+    case 'heading':
       return renderHeadingBlockToMarkdown(block);
-    case "image":
+    case 'image':
       return renderImageBlockToMarkdown(block);
-    case "code":
+    case 'code':
       return renderCodeBlockToMarkdown(block);
-    case "list":
+    case 'list':
       return renderListBlockToMarkdown(block);
-    case "quote":
+    case 'quote':
       return renderQuoteBlockToMarkdown(block);
-    case "embed":
+    case 'embed':
       return renderEmbedBlockToMarkdown(block);
-    case "divider":
-      return "---";
+    case 'divider':
+      return '---';
     default:
       return `[Unknown block type: ${type}]`;
   }
@@ -646,7 +646,7 @@ function renderCodeBlockToMarkdown(block) {
     language,
     content
   } = block;
-  return "```" + (language || '') + "\n" + content + "\n```";
+  return '```' + (language || '') + '\n' + content + '\n```';
 }
 
 /**
@@ -660,10 +660,10 @@ function renderListBlockToMarkdown(block) {
     listType
   } = block;
   if (!items || !Array.isArray(items)) {
-    return "[Invalid list items]";
+    return '[Invalid list items]';
   }
   return items.map((item, index) => {
-    if (listType === "ordered") {
+    if (listType === 'ordered') {
       return `${index + 1}. ${item}`;
     } else {
       return `- ${item}`;
@@ -900,9 +900,9 @@ class BlockDocDocument {
    * @returns {BlockDocDocument} New document instance
    */
   static fromJSON(json) {
-    const data = typeof json === "string" ? JSON.parse(json) : json;
+    const data = typeof json === 'string' ? JSON.parse(json) : json;
     if (!data.article) {
-      throw new Error("Invalid BlockDoc document: missing article property");
+      throw new Error('Invalid BlockDoc document: missing article property');
     }
     return new BlockDocDocument({
       title: data.article.title,

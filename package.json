@@ -27,8 +27,10 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "index.d.ts"
   ],
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:umd",

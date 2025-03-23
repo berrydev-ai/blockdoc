@@ -11,7 +11,7 @@
  */
 function renderToMarkdown(article) {
   if (!article || !article.blocks || !Array.isArray(article.blocks)) {
-    throw new Error("Invalid article structure");
+    throw new Error('Invalid article structure');
   }
   const markdown = [`# ${article.title}`, ''];
 
@@ -48,22 +48,22 @@ function renderBlockToMarkdown(block) {
     type
   } = block;
   switch (type) {
-    case "text":
+    case 'text':
       return renderTextBlockToMarkdown(block);
-    case "heading":
+    case 'heading':
       return renderHeadingBlockToMarkdown(block);
-    case "image":
+    case 'image':
       return renderImageBlockToMarkdown(block);
-    case "code":
+    case 'code':
       return renderCodeBlockToMarkdown(block);
-    case "list":
+    case 'list':
       return renderListBlockToMarkdown(block);
-    case "quote":
+    case 'quote':
       return renderQuoteBlockToMarkdown(block);
-    case "embed":
+    case 'embed':
       return renderEmbedBlockToMarkdown(block);
-    case "divider":
-      return "---";
+    case 'divider':
+      return '---';
     default:
       return `[Unknown block type: ${type}]`;
   }
@@ -122,7 +122,7 @@ function renderCodeBlockToMarkdown(block) {
     language,
     content
   } = block;
-  return "```" + (language || '') + "\n" + content + "\n```";
+  return '```' + (language || '') + '\n' + content + '\n```';
 }
 
 /**
@@ -136,10 +136,10 @@ function renderListBlockToMarkdown(block) {
     listType
   } = block;
   if (!items || !Array.isArray(items)) {
-    return "[Invalid list items]";
+    return '[Invalid list items]';
   }
   return items.map((item, index) => {
-    if (listType === "ordered") {
+    if (listType === 'ordered') {
       return `${index + 1}. ${item}`;
     } else {
       return `- ${item}`;

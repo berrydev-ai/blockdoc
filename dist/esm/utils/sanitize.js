@@ -16,7 +16,7 @@ function sanitizeHtml(html) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#039;'
+    '\'': '&#039;'
   };
   return String(html).replace(/[&<>"']/g, function (m) {
     return map[m];
