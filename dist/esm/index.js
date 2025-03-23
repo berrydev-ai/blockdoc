@@ -917,7 +917,7 @@ class BlockDocDocument {
 
 
 // Version
-const version = '0.1.0';
+const version = '1.0.0';
 
 export { Block, BlockDocDocument, renderToHTML, renderToMarkdown, schema, version };
-//# sourceMappingURL=blockdoc.js.map
+//# sourceMappingURL=index.js.map

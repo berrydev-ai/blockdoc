@@ -1,0 +1,35 @@
+# Development and build files
+.github/
+.babelrc
+.eslintrc
+.eslintignore
+.gitignore
+jest.config.js
+babel.config.json
+rollup.config*.js
+jsdoc.json
+coverage/
+CLAUDE.md
+CLAUDE_CONVO.md
+
+# Examples (these can be large and aren't needed for runtime)
+examples/
+
+# Documentation source files (the compiled documentation will be included)
+docs/
+
+# Tests
+tests/
+__tests__/
+**/*.test.js
+
+# Editor configs
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+
+# Dependency management
+npm-debug.log
+yarn-debug.log
+yarn-error.log

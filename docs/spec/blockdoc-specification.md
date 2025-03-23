@@ -229,6 +229,35 @@ The BlockDoc format can be extended with custom block types. Custom types should
 2. Use a prefix for the type name to avoid collisions (e.g., "myapp-gallery")
 3. Document their specific properties and rendering behavior
 
+## Use Cases
+
+BlockDoc is particularly well-suited for:
+
+- Modern CMS platforms
+- Blog systems with structured content
+- Documentation sites
+- LLM-assisted content creation tools
+- Interactive editing environments
+- Content that requires targeted updates
+
+## Comparison to Other Formats
+
+BlockDoc sits between simple formats like Markdown and complex formats like Portable Text:
+
+| Format | Structure | LLM Compatibility | Database Storage | Targeted Updates |
+|--------|-----------|-------------------|------------------|------------------|
+| Plain Markdown | Flat, minimal | Good | Poor | Difficult |
+| BlockDoc | Flat, block-based | Excellent | Excellent | Excellent |
+| Portable Text | Nested, complex | Fair | Good | Fair |
+| HTML | Nested, tag-based | Poor | Poor | Difficult |
+
+Advantages of BlockDoc:
+- More structure than plain Markdown
+- Less complexity than deeply nested document models
+- Better LLM compatibility than most alternatives
+- Simple integration with databases
+- Easier targeted updates than monolithic formats
+
 ## Version History
 
 - 1.0.0 (2025-03-23): Initial specification

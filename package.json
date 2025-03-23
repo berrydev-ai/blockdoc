@@ -1,15 +1,45 @@
 {
   "name": "blockdoc",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple, powerful standard for structured content that works beautifully with LLMs, humans, and modern editors",
-  "main": "src/index.js",
   "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "browser": "./dist/blockdoc.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "browser": "./dist/blockdoc.min.js"
+    },
+    "./renderers/html": {
+      "import": "./dist/esm/renderers/html.js",
+      "require": "./dist/cjs/renderers/html.js"
+    },
+    "./renderers/markdown": {
+      "import": "./dist/esm/renderers/markdown.js",
+      "require": "./dist/cjs/renderers/markdown.js"
+    },
+    "./utils/sanitize": {
+      "import": "./dist/esm/utils/sanitize.js",
+      "require": "./dist/cjs/utils/sanitize.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "test": "jest",
-    "build": "rollup -c",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:umd",
+    "build:esm": "rollup -c rollup.config.esm.js",
+    "build:cjs": "rollup -c rollup.config.cjs.js",
+    "build:umd": "rollup -c rollup.config.umd.js",
+    "clean": "rimraf dist",
     "docs": "jsdoc -c jsdoc.json",
     "lint": "eslint src/**/*.js",
-    "examples": "node examples/simple-blog/index.js"
+    "examples": "node examples/simple-blog/index.js",
+    "prepublishOnly": "npm run lint && npm test && npm run build"
   },
   "repository": {
     "type": "git",
@@ -21,9 +51,12 @@
     "llm",
     "markdown",
     "structured-content",
-    "editor"
+    "editor",
+    "blocks",
+    "document",
+    "ai"
   ],
-  "author": "Berry Development <dev@berrydev.com>",
+  "author": "Eric Berry <eric@berrydev.ai>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/berrydev-ai/blockdoc/issues"
@@ -42,10 +75,13 @@
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "core-js": "^3.32.2",
     "eslint": "^8.51.0",
     "jest": "^29.7.0",
     "jsdoc": "^4.0.2",
     "openai": "^4.12.1",
+    "rimraf": "^5.0.5",
     "rollup": "^4.0.2"
   },
   "peerDependencies": {
