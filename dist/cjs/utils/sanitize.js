@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * BlockDoc HTML Sanitization
  * 
@@ -9,18 +11,18 @@
  * @param {string} html - HTML content to sanitize
  * @returns {string} Sanitized HTML
  */
-export function sanitizeHtml(html) {
+function sanitizeHtml(html) {
   if (!html) return '';
-  
   const map = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    '\'': '&#039;'
+    "'": '&#039;'
   };
-  
-  return String(html).replace(/[&<>"']/g, function(m) { return map[m]; });
+  return String(html).replace(/[&<>"']/g, function (m) {
+    return map[m];
+  });
 }
 
 /**
@@ -28,9 +30,9 @@ export function sanitizeHtml(html) {
  * @param {string} url - URL to sanitize
  * @returns {string} Sanitized URL
  */
-export function sanitizeUrl(url) {
+function sanitizeUrl(url) {
   if (!url) return '';
-  
+
   // Only allow http and https protocols
   if (url.match(/^https?:\/\//i)) {
     return url;
@@ -40,7 +42,11 @@ export function sanitizeUrl(url) {
     // Relative URLs are considered safe
     return url;
   }
-  
+
   // Default to empty for potentially unsafe protocols
   return '';
 }
+
+exports.sanitizeHtml = sanitizeHtml;
+exports.sanitizeUrl = sanitizeUrl;
+//# sourceMappingURL=sanitize.js.map

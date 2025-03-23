@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * BlockDoc Block
  *
@@ -5,26 +7,16 @@
  */
 
 // Define allowed block types
-const ALLOWED_TYPES = [
-  'text',
-  'heading',
-  'image',
-  'code',
-  'list',
-  'quote',
-  'embed',
-  'divider',
-];
+const ALLOWED_TYPES = ["text", "heading", "image", "code", "list", "quote", "embed", "divider"];
 
 // Define type-specific required properties
 const TYPE_REQUIREMENTS = {
-  heading: ['level'],
-  code: ['language'],
-  image: ['url', 'alt'],
-  list: ['items', 'listType'],
+  heading: ["level"],
+  code: ["language"],
+  image: ["url", "alt"],
+  list: ["items", "listType"]
 };
-
-export class Block {
+class Block {
   /**
    * Create a new block
    * @param {Object} data - Block data
@@ -35,36 +27,29 @@ export class Block {
    */
   constructor(data) {
     if (!data.id) {
-      throw new Error('Block ID is required');
+      throw new Error("Block ID is required");
     }
-
     if (!data.type || !ALLOWED_TYPES.includes(data.type)) {
-      throw new Error(
-        `Invalid block type: ${
-          data.type
-        }. Allowed types are: ${ALLOWED_TYPES.join(', ')}`
-      );
+      throw new Error(`Invalid block type: ${data.type}. Allowed types are: ${ALLOWED_TYPES.join(", ")}`);
     }
 
     // Basic properties all blocks have
     this.id = data.id;
     this.type = data.type;
-    this.content = data.content || '';
+    this.content = data.content || "";
 
     // Check type-specific required properties
     const requiredProps = TYPE_REQUIREMENTS[this.type] || [];
     for (const prop of requiredProps) {
       if (data[prop] === undefined) {
-        throw new Error(
-          `Block of type "${this.type}" requires property "${prop}"`
-        );
+        throw new Error(`Block of type "${this.type}" requires property "${prop}"`);
       }
       this[prop] = data[prop];
     }
 
     // Copy any additional properties
-    Object.keys(data).forEach((key) => {
-      if (!['id', 'type', 'content'].includes(key) && this[key] === undefined) {
+    Object.keys(data).forEach(key => {
+      if (!["id", "type", "content"].includes(key) && this[key] === undefined) {
         this[key] = data[key];
       }
     });
@@ -77,13 +62,16 @@ export class Block {
    */
   update(updates) {
     // Cannot change block type or ID
-    const { id, type, ...allowedUpdates } = updates;
+    const {
+      id,
+      type,
+      ...allowedUpdates
+    } = updates;
 
     // Apply updates
-    Object.keys(allowedUpdates).forEach((key) => {
+    Object.keys(allowedUpdates).forEach(key => {
       this[key] = allowedUpdates[key];
     });
-
     return this;
   }
 
@@ -95,16 +83,15 @@ export class Block {
     const result = {
       id: this.id,
       type: this.type,
-      content: this.content,
+      content: this.content
     };
 
     // Add type-specific properties
-    Object.keys(this).forEach((key) => {
-      if (!['id', 'type', 'content'].includes(key)) {
+    Object.keys(this).forEach(key => {
+      if (!["id", "type", "content"].includes(key)) {
         result[key] = this[key];
       }
     });
-
     return result;
   }
 
@@ -121,8 +108,8 @@ export class Block {
   static text(id, content) {
     return new Block({
       id,
-      type: 'text',
-      content,
+      type: "text",
+      content
     });
   }
 
@@ -136,9 +123,9 @@ export class Block {
   static heading(id, level, content) {
     return new Block({
       id,
-      type: 'heading',
+      type: "heading",
       level,
-      content,
+      content
     });
   }
 
@@ -153,11 +140,13 @@ export class Block {
   static image(id, url, alt, caption) {
     return new Block({
       id,
-      type: 'image',
-      content: '',
+      type: "image",
+      content: "",
       url,
       alt,
-      ...(caption ? { caption } : {}),
+      ...(caption ? {
+        caption
+      } : {})
     });
   }
 
@@ -171,9 +160,9 @@ export class Block {
   static code(id, language, content) {
     return new Block({
       id,
-      type: 'code',
+      type: "code",
       language,
-      content,
+      content
     });
   }
 
@@ -184,13 +173,16 @@ export class Block {
    * @param {string} [listType='unordered'] - List type (ordered or unordered)
    * @returns {Block} New block instance
    */
-  static list(id, items, listType = 'unordered') {
+  static list(id, items, listType = "unordered") {
     return new Block({
       id,
-      type: 'list',
-      content: '',
+      type: "list",
+      content: "",
       items,
-      listType,
+      listType
     });
   }
 }
+
+exports.Block = Block;
+//# sourceMappingURL=block.js.map

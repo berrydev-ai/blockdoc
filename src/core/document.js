@@ -4,12 +4,12 @@
  * Core class for creating, manipulating and rendering BlockDoc documents
  */
 
-import Ajv from "ajv"
-import addFormats from "ajv-formats"
-import { schema } from "../schema-loader.js"
-import { renderToHTML } from "../renderers/html.js"
-import { renderToMarkdown } from "../renderers/markdown.js"
-import { Block } from "./block.js"
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import { schema } from '../schema-loader.js';
+import { renderToHTML } from '../renderers/html.js';
+import { renderToMarkdown } from '../renderers/markdown.js';
+import { Block } from './block.js';
 
 export class BlockDocDocument {
   /**
@@ -24,11 +24,11 @@ export class BlockDocDocument {
       title,
       metadata,
       blocks: [],
-    }
+    };
 
     // Add initial blocks if provided
     if (blocks && Array.isArray(blocks)) {
-      blocks.forEach((block) => this.addBlock(block))
+      blocks.forEach((block) => this.addBlock(block));
     }
   }
 
@@ -38,17 +38,17 @@ export class BlockDocDocument {
    * @throws {Error} If validation fails
    */
   validate() {
-    const ajv = new Ajv()
-    addFormats(ajv)
-    const validate = ajv.compile(schema)
-    const valid = validate({ article: this.article })
+    const ajv = new Ajv();
+    addFormats(ajv);
+    const validate = ajv.compile(schema);
+    const valid = validate({ article: this.article });
 
     if (!valid) {
-      const errors = validate.errors
-      throw new Error(`Invalid BlockDoc document: ${JSON.stringify(errors)}`)
+      const errors = validate.errors;
+      throw new Error(`Invalid BlockDoc document: ${JSON.stringify(errors)}`);
     }
 
-    return true
+    return true;
   }
 
   /**
@@ -59,12 +59,12 @@ export class BlockDocDocument {
   addBlock(blockData) {
     // Check if ID already exists
     if (this.getBlock(blockData.id)) {
-      throw new Error(`Block with ID "${blockData.id}" already exists`)
+      throw new Error(`Block with ID "${blockData.id}" already exists`);
     }
 
-    const block = new Block(blockData)
-    this.article.blocks.push(block.toJSON())
-    return block
+    const block = new Block(blockData);
+    this.article.blocks.push(block.toJSON());
+    return block;
   }
 
   /**
@@ -76,12 +76,12 @@ export class BlockDocDocument {
   insertBlock(blockData, position) {
     // Check if ID already exists
     if (this.getBlock(blockData.id)) {
-      throw new Error(`Block with ID "${blockData.id}" already exists`)
+      throw new Error(`Block with ID "${blockData.id}" already exists`);
     }
 
-    const block = new Block(blockData)
-    this.article.blocks.splice(position, 0, block.toJSON())
-    return block
+    const block = new Block(blockData);
+    this.article.blocks.splice(position, 0, block.toJSON());
+    return block;
   }
 
   /**
@@ -90,7 +90,7 @@ export class BlockDocDocument {
    * @returns {Object|null} The block or null if not found
    */
   getBlock(id) {
-    return this.article.blocks.find((block) => block.id === id) || null
+    return this.article.blocks.find((block) => block.id === id) || null;
   }
 
   /**
@@ -100,23 +100,23 @@ export class BlockDocDocument {
    * @returns {Object} The updated block
    */
   updateBlock(id, updates) {
-    const index = this.article.blocks.findIndex((block) => block.id === id)
+    const index = this.article.blocks.findIndex((block) => block.id === id);
 
     if (index === -1) {
-      throw new Error(`Block with ID "${id}" not found`)
+      throw new Error(`Block with ID "${id}" not found`);
     }
 
     // Create a new block with the updates
-    const currentBlock = this.article.blocks[index]
-    const updatedBlock = { ...currentBlock, ...updates }
+    const currentBlock = this.article.blocks[index];
+    const updatedBlock = { ...currentBlock, ...updates };
 
     // Validate the updated block
-    const block = new Block(updatedBlock)
+    const block = new Block(updatedBlock);
 
     // Update the block in the document
-    this.article.blocks[index] = block.toJSON()
+    this.article.blocks[index] = block.toJSON();
 
-    return this.article.blocks[index]
+    return this.article.blocks[index];
   }
 
   /**
@@ -125,14 +125,14 @@ export class BlockDocDocument {
    * @returns {boolean} True if removed
    */
   removeBlock(id) {
-    const index = this.article.blocks.findIndex((block) => block.id === id)
+    const index = this.article.blocks.findIndex((block) => block.id === id);
 
     if (index === -1) {
-      return false
+      return false;
     }
 
-    this.article.blocks.splice(index, 1)
-    return true
+    this.article.blocks.splice(index, 1);
+    return true;
   }
 
   /**
@@ -142,23 +142,23 @@ export class BlockDocDocument {
    * @returns {boolean} True if moved
    */
   moveBlock(id, newPosition) {
-    const index = this.article.blocks.findIndex((block) => block.id === id)
+    const index = this.article.blocks.findIndex((block) => block.id === id);
 
     if (index === -1) {
-      return false
+      return false;
     }
 
     if (newPosition < 0 || newPosition >= this.article.blocks.length) {
-      throw new Error(`Invalid position: ${newPosition}`)
+      throw new Error(`Invalid position: ${newPosition}`);
     }
 
     // Remove the block from its current position
-    const [block] = this.article.blocks.splice(index, 1)
+    const [block] = this.article.blocks.splice(index, 1);
 
     // Insert it at the new position
-    this.article.blocks.splice(newPosition, 0, block)
+    this.article.blocks.splice(newPosition, 0, block);
 
-    return true
+    return true;
   }
 
   /**
@@ -166,7 +166,7 @@ export class BlockDocDocument {
    * @returns {string} HTML representation
    */
   renderToHTML() {
-    return renderToHTML(this.article)
+    return renderToHTML(this.article);
   }
 
   /**
@@ -174,7 +174,7 @@ export class BlockDocDocument {
    * @returns {string} Markdown representation
    */
   renderToMarkdown() {
-    return renderToMarkdown(this.article)
+    return renderToMarkdown(this.article);
   }
 
   /**
@@ -182,7 +182,7 @@ export class BlockDocDocument {
    * @returns {Object} Document as JSON object
    */
   toJSON() {
-    return { article: this.article }
+    return { article: this.article };
   }
 
   /**
@@ -190,7 +190,7 @@ export class BlockDocDocument {
    * @returns {string} Document as JSON string
    */
   toString() {
-    return JSON.stringify(this.toJSON(), null, 2)
+    return JSON.stringify(this.toJSON(), null, 2);
   }
 
   /**
@@ -199,16 +199,16 @@ export class BlockDocDocument {
    * @returns {BlockDocDocument} New document instance
    */
   static fromJSON(json) {
-    const data = typeof json === "string" ? JSON.parse(json) : json
+    const data = typeof json === 'string' ? JSON.parse(json) : json;
 
     if (!data.article) {
-      throw new Error("Invalid BlockDoc document: missing article property")
+      throw new Error('Invalid BlockDoc document: missing article property');
     }
 
     return new BlockDocDocument({
       title: data.article.title,
       metadata: data.article.metadata || {},
       blocks: data.article.blocks || [],
-    })
+    });
   }
 }

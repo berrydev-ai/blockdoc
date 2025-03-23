@@ -55,7 +55,7 @@ export default srcFiles.map(file => {
         babelHelpers: 'bundled',
         exclude: 'node_modules/**',
         presets: [
-          ['@babel/preset-env', { targets: { node: '18' }, modules: 'cjs' }]
+          ['@babel/preset-env', { targets: { node: '18' }, modules: false }]
         ]
       })
     ],

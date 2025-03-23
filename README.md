@@ -1,4 +1,6 @@
-# blockdoc
+# BlockDoc
+
+![][BlockDoc Logo](https://raw.githubusercontent.com/berrydev-ai/blockdoc/main/logo.png)
 
 A simple, powerful standard for structured content that works beautifully with LLMs, humans, and modern editors.
 
@@ -25,6 +27,7 @@ BlockDoc is based on a block-based architecture where content is organized into 
 - Optional metadata
 
 This architecture enables:
+
 - Targeted updates to specific sections
 - Better organization of content
 - Easy integration with LLMs
@@ -99,37 +102,37 @@ BlockDoc supports multiple import formats:
 ### ESM (ES Modules)
 
 ```javascript
-import { BlockDocDocument, Block } from "blockdoc";
+import { BlockDocDocument, Block } from "blockdoc"
 
 // Create a new document
 const doc = new BlockDocDocument({
   title: "My First BlockDoc Post",
-});
+})
 
 // Add blocks using factory methods
-doc.addBlock(Block.text("intro", "Welcome to my first post!"));
+doc.addBlock(Block.text("intro", "Welcome to my first post!"))
 
 // Render to HTML
-const html = doc.renderToHTML();
-console.log(html);
+const html = doc.renderToHTML()
+console.log(html)
 ```
 
 ### CommonJS
 
 ```javascript
-const { BlockDocDocument, Block } = require("blockdoc");
+const { BlockDocDocument, Block } = require("blockdoc")
 
 // Create a new document
 const doc = new BlockDocDocument({
   title: "My First BlockDoc Post",
-});
+})
 
 // Add blocks
-doc.addBlock(Block.text("intro", "Welcome to my first post!"));
+doc.addBlock(Block.text("intro", "Welcome to my first post!"))
 
 // Render to HTML
-const html = doc.renderToHTML();
-console.log(html);
+const html = doc.renderToHTML()
+console.log(html)
 ```
 
 ### Browser (UMD)
@@ -139,14 +142,14 @@ console.log(html);
 <script>
   // BlockDoc is available as a global variable
   const doc = new BlockDoc.BlockDocDocument({
-    title: "My First BlockDoc Post"
-  });
-  
-  doc.addBlock(BlockDoc.Block.text("intro", "Welcome to my first post!"));
-  
+    title: "My First BlockDoc Post",
+  })
+
+  doc.addBlock(BlockDoc.Block.text("intro", "Welcome to my first post!"))
+
   // Render to HTML
-  const html = doc.renderToHTML();
-  document.getElementById("content").innerHTML = html;
+  const html = doc.renderToHTML()
+  document.getElementById("content").innerHTML = html
 </script>
 ```
 
@@ -155,19 +158,19 @@ console.log(html);
 BlockDoc includes TypeScript type definitions:
 
 ```typescript
-import { BlockDocDocument, Block, BlockData } from "blockdoc";
+import { BlockDocDocument, Block, BlockData } from "blockdoc"
 
 // Create a typed document
 const doc = new BlockDocDocument({
   title: "My First BlockDoc Post",
   metadata: {
     author: "John Doe",
-    publishedDate: new Date().toISOString()
-  }
-});
+    publishedDate: new Date().toISOString(),
+  },
+})
 
 // Add blocks with proper typing
-doc.addBlock(Block.text("intro", "Welcome to my first post!"));
+doc.addBlock(Block.text("intro", "Welcome to my first post!"))
 ```
 
 ## Working with LLMs
