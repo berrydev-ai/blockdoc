@@ -1,10 +1,69 @@
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { marked } from 'marked';
-import hljs from 'highlight.js';
+'use strict';
+
+var marked = require('marked');
+var Ajv = require('ajv');
+var addFormats = require('ajv-formats');
+var fs = require('fs');
+var path = require('path');
+var url = require('url');
+var hljs = require('highlight.js');
+
+var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
+const byteToHex = [];
+for (let i = 0; i < 256; ++i) {
+    byteToHex.push((i + 0x100).toString(16).slice(1));
+}
+function unsafeStringify(arr, offset = 0) {
+    return (byteToHex[arr[offset + 0]] +
+        byteToHex[arr[offset + 1]] +
+        byteToHex[arr[offset + 2]] +
+        byteToHex[arr[offset + 3]] +
+        '-' +
+        byteToHex[arr[offset + 4]] +
+        byteToHex[arr[offset + 5]] +
+        '-' +
+        byteToHex[arr[offset + 6]] +
+        byteToHex[arr[offset + 7]] +
+        '-' +
+        byteToHex[arr[offset + 8]] +
+        byteToHex[arr[offset + 9]] +
+        '-' +
+        byteToHex[arr[offset + 10]] +
+        byteToHex[arr[offset + 11]] +
+        byteToHex[arr[offset + 12]] +
+        byteToHex[arr[offset + 13]] +
+        byteToHex[arr[offset + 14]] +
+        byteToHex[arr[offset + 15]]).toLowerCase();
+}
+
+let getRandomValues;
+const rnds8 = new Uint8Array(16);
+function rng() {
+    if (!getRandomValues) {
+        if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
+            throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+        }
+        getRandomValues = crypto.getRandomValues.bind(crypto);
+    }
+    return getRandomValues(rnds8);
+}
+
+const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID.bind(crypto);
+var native = { randomUUID };
+
+function v4(options, buf, offset) {
+    if (native.randomUUID && true && !options) {
+        return native.randomUUID();
+    }
+    options = options || {};
+    const rnds = options.random ?? options.rng?.() ?? rng();
+    if (rnds.length < 16) {
+        throw new Error('Random bytes length must be >= 16');
+    }
+    rnds[6] = (rnds[6] & 0x0f) | 0x40;
+    rnds[8] = (rnds[8] & 0x3f) | 0x80;
+    return unsafeStringify(rnds);
+}
 
 /**
  * BlockDoc Block
@@ -198,10 +257,10 @@ class Block {
 
 
 // Get current directory
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname$1 = path.dirname(url.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('markdown.js', document.baseURI).href))));
 
 // Load schema
-const schemaPath = path.join(__dirname, 'schema/blockdoc.schema.json');
+const schemaPath = path.join(__dirname$1, 'schema/blockdoc.schema.json');
 const schemaContent = fs.readFileSync(schemaPath, 'utf-8');
 const schema = JSON.parse(schemaContent);
 
@@ -238,7 +297,7 @@ function sanitizeHtml(html) {
 
 
 // Configure marked
-marked.setOptions({
+marked.marked.setOptions({
   highlight: function (code, lang) {
     if (lang && hljs.getLanguage(lang)) {
       return hljs.highlight(code, {
@@ -323,7 +382,7 @@ function renderBlock(block) {
  */
 function renderTextBlock(block) {
   // Use marked to convert markdown to HTML
-  return marked.parse(block.content);
+  return marked.marked.parse(block.content);
 }
 
 /**
@@ -404,7 +463,7 @@ function renderListBlock(block) {
     return '<p>Invalid list items</p>';
   }
   const tag = listType === 'ordered' ? 'ol' : 'ul';
-  const itemsHtml = items.map(item => `<li>${marked.parse(item)}</li>`).join('');
+  const itemsHtml = items.map(item => `<li>${marked.marked.parse(item)}</li>`).join('');
   return `<${tag} class="blockdoc-list blockdoc-list-${listType}">${itemsHtml}</${tag}>`;
 }
 
@@ -418,7 +477,7 @@ function renderQuoteBlock(block) {
     content,
     attribution
   } = block;
-  let html = `<blockquote class="blockdoc-quote">${marked.parse(content)}</blockquote>`;
+  let html = `<blockquote class="blockdoc-quote">${marked.marked.parse(content)}</blockquote>`;
   if (attribution) {
     html += `<cite class="blockdoc-attribution">${sanitizeHtml(attribution)}</cite>`;
   }
@@ -909,62 +968,6 @@ class BlockDocDocument {
   }
 }
 
-const byteToHex = [];
-for (let i = 0; i < 256; ++i) {
-    byteToHex.push((i + 0x100).toString(16).slice(1));
-}
-function unsafeStringify(arr, offset = 0) {
-    return (byteToHex[arr[offset + 0]] +
-        byteToHex[arr[offset + 1]] +
-        byteToHex[arr[offset + 2]] +
-        byteToHex[arr[offset + 3]] +
-        '-' +
-        byteToHex[arr[offset + 4]] +
-        byteToHex[arr[offset + 5]] +
-        '-' +
-        byteToHex[arr[offset + 6]] +
-        byteToHex[arr[offset + 7]] +
-        '-' +
-        byteToHex[arr[offset + 8]] +
-        byteToHex[arr[offset + 9]] +
-        '-' +
-        byteToHex[arr[offset + 10]] +
-        byteToHex[arr[offset + 11]] +
-        byteToHex[arr[offset + 12]] +
-        byteToHex[arr[offset + 13]] +
-        byteToHex[arr[offset + 14]] +
-        byteToHex[arr[offset + 15]]).toLowerCase();
-}
-
-let getRandomValues;
-const rnds8 = new Uint8Array(16);
-function rng() {
-    if (!getRandomValues) {
-        if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
-            throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-        }
-        getRandomValues = crypto.getRandomValues.bind(crypto);
-    }
-    return getRandomValues(rnds8);
-}
-
-const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID.bind(crypto);
-var native = { randomUUID };
-
-function v4(options, buf, offset) {
-    if (native.randomUUID && true && !options) {
-        return native.randomUUID();
-    }
-    options = options || {};
-    const rnds = options.random ?? options.rng?.() ?? rng();
-    if (rnds.length < 16) {
-        throw new Error('Random bytes length must be >= 16');
-    }
-    rnds[6] = (rnds[6] & 0x0f) | 0x40;
-    rnds[8] = (rnds[8] & 0x3f) | 0x80;
-    return unsafeStringify(rnds);
-}
-
 /**
  * Markdown to BlockDoc Converter
  *
@@ -1026,7 +1029,7 @@ function splitMarkdownIntoBlocks(markdownText) {
   }
 
   // Parse markdown into tokens using marked
-  const tokens = marked.lexer(markdownText);
+  const tokens = marked.marked.lexer(markdownText);
   const blocks = [];
   let currentListItems = [];
   let currentListType = '';
@@ -1265,15 +1268,5 @@ function generateBlockId(block) {
   return `block-${v4().substring(0, 8)}`;
 }
 
-/**
- * BlockDoc
- * 
- * Main entry point for the BlockDoc library
- */
-
-
-// Version
-const version = '1.1.0';
-
-export { Block, BlockDocDocument, markdownToBlockDoc, renderToHTML, renderToMarkdown, schema, version };
-//# sourceMappingURL=index.js.map
+exports.markdownToBlockDoc = markdownToBlockDoc;
+//# sourceMappingURL=markdown.js.map

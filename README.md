@@ -175,6 +175,46 @@ const doc = new BlockDocDocument({
 doc.addBlock(Block.text("intro", "Welcome to my first post!"))
 ```
 
+## Converting from Markdown
+
+BlockDoc can convert existing Markdown documents into BlockDoc format:
+
+```javascript
+import { markdownToBlockDoc } from "blockdoc"
+
+// Convert a markdown document to BlockDoc
+const markdownContent = `
+# My Markdown Document
+
+This is a paragraph with **bold** text.
+
+## Section 1
+
+- List item 1
+- List item 2
+
+\`\`\`javascript
+console.log("Hello World");
+\`\`\`
+`
+
+const doc = markdownToBlockDoc(markdownContent, "My Document", {
+  author: "Jane Doe",
+  publishedDate: new Date().toISOString()
+})
+
+// Use the document
+console.log(doc.article.title) // "My Markdown Document" (extracted from content)
+console.log(doc.article.blocks.length) // Multiple blocks created from markdown
+
+// Convert to JSON
+const json = doc.toString()
+
+// Render to HTML or back to Markdown
+const html = doc.renderToHTML()
+const markdown = doc.renderToMarkdown()
+```
+
 ## Working with LLMs
 
 blockdoc shines when generating or modifying content with LLMs:
@@ -223,6 +263,7 @@ async function updateSection(document, blockId, prompt) {
   - [Simple Blog](examples/simple-blog/)
   - [React Demo](examples/react-demo/)
   - [LLM Integration](examples/llm-integration/)
+  - [Markdown Conversion](examples/markdown-conversion/)
 
 ## Development
 

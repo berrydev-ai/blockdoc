@@ -12,9 +12,12 @@ export { BlockDocDocument } from './core/document.js';
 export { renderToHTML } from './renderers/html.js';
 export { renderToMarkdown } from './renderers/markdown.js';
 
+// Conversions
+export { markdownToBlockDoc } from './conversions/markdown.js';
+
 // Schema
 import { schema } from './schema-loader.js';
 export { schema };
 
 // Version
-export const version = '1.0.0';
+export const version = '1.1.0';

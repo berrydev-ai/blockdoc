@@ -1,0 +1,53 @@
+<article class="blockdoc-article">
+<h1 class="blockdoc-title">Markdown to BlockDoc Conversion</h1>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-b9970341" data-block-type="text"><p>This is a demonstration of converting <strong>Markdown</strong> content to BlockDoc format.</p>
+</div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="key-features" data-block-type="heading"><h2>Key Features</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-6cce6946" data-block-type="text"><p>BlockDoc makes it easy to work with structured content:</p>
+</div>
+<div class="blockdoc-block blockdoc-list" data-block-id="unordered-list-3ef47781" data-block-type="list"><ul class="blockdoc-list blockdoc-list-unordered"><li><p>Maintains semantic structure</p>
+</li><li><p>Preserves formatting</p>
+</li><li><p>Creates meaningful block IDs</p>
+</li></ul></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="code-examples" data-block-type="heading"><h3>Code Examples</h3></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-f99074e5" data-block-type="text"><p>Here&#39;s an example of JavaScript code:</p>
+</div>
+<div class="blockdoc-block blockdoc-code" data-block-id="code-javascript-fd53cc4f" data-block-type="code">
+    <pre class="blockdoc-pre">
+      <code class="blockdoc-code language-javascript"><span class="hljs-keyword">import</span> { markdownToBlockDoc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;blockdoc&#x27;</span>;
+
+<span class="hljs-comment">// Convert markdown to BlockDoc</span>
+<span class="hljs-keyword">const</span> doc = <span class="hljs-title function_">markdownToBlockDoc</span>(markdownText);
+
+<span class="hljs-comment">// Export as JSON</span>
+<span class="hljs-keyword">const</span> jsonStr = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(doc.<span class="hljs-title function_">toJSON</span>(), <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(jsonStr);</code>
+    </pre>
+  </div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="images-and-media" data-block-type="heading"><h2>Images and Media</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-f43c792e" data-block-type="text"><p>Images are properly converted:</p>
+</div>
+<div class="blockdoc-block blockdoc-image" data-block-id="image-219e3b58" data-block-type="image"><figure class="blockdoc-figure"><img src="https://placehold.co/600x400?text=Example+Image" alt="Example image" class="blockdoc-image" /><figcaption class="blockdoc-caption">Example image caption</figcaption></figure></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="block-quotes" data-block-type="heading"><h2>Block Quotes</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-080bb230" data-block-type="text"><p>BlockDoc handles various content types:</p>
+</div>
+<div class="blockdoc-block blockdoc-quote" data-block-id="quote-68371013" data-block-type="quote"><blockquote class="blockdoc-quote"><p>This is a block quote that will be properly converted
+to a BlockDoc quote block, preserving its formatting
+and presentation.
+— Attribution Source</p>
+</blockquote></div>
+<div class="blockdoc-block blockdoc-divider" data-block-id="divider-786e1313" data-block-type="divider"><hr class="blockdoc-divider" /></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="lists" data-block-type="heading"><h2>Lists</h2></div>
+<div class="blockdoc-block blockdoc-list" data-block-id="ordered-list-9ccad700" data-block-type="list"><ol class="blockdoc-list blockdoc-list-ordered"><li><p>Ordered lists work great</p>
+</li><li><p>With multiple items</p>
+</li><li><p>Preserving the numbering</p>
+</li></ol></div>
+<div class="blockdoc-block blockdoc-list" data-block-id="unordered-list-62fce9c0" data-block-type="list"><ul class="blockdoc-list blockdoc-list-unordered"><li><p>Unordered lists too</p>
+</li><li><p>With proper nesting</p>
+</li><li><p>And formatting</p>
+</li></ul></div>
+<div class="blockdoc-block blockdoc-heading" data-block-id="the-end" data-block-type="heading"><h2>The End</h2></div>
+<div class="blockdoc-block blockdoc-text" data-block-id="text-b718bdfb" data-block-type="text"><p>This example shows how Markdown can be seamlessly converted to BlockDoc format, preserving
+the document structure while enabling all the benefits of block-based content.</p>
+</div>
+</article>

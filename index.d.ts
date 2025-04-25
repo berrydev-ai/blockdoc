@@ -58,6 +58,11 @@ export class BlockDocDocument {
 
 export function renderToHTML(article: Article): string;
 export function renderToMarkdown(article: Article): string;
+export function markdownToBlockDoc(
+  markdownText: string,
+  title?: string,
+  metadata?: Record<string, any>
+): BlockDocDocument;
 
 export const schema: any;
 export const version: string;
@@ -69,6 +74,14 @@ declare module 'blockdoc/renderers/html' {
 
 declare module 'blockdoc/renderers/markdown' {
   export function renderToMarkdown(article: Article): string;
+}
+
+declare module 'blockdoc/conversions/markdown' {
+  export function markdownToBlockDoc(
+    markdownText: string,
+    title?: string,
+    metadata?: Record<string, any>
+  ): BlockDocDocument;
 }
 
 declare module 'blockdoc/utils/sanitize' {
