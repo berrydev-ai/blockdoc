@@ -10,5 +10,13 @@ export default {
   testMatch: ['**/tests/**/*.test.js'],
   transform: {
     '^.+\\.jsx?$': 'babel-jest'
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!(uuid)/)"
+  ],
+  globals: {
+    'import.meta': {
+      url: ''
+    }
   }
 };
